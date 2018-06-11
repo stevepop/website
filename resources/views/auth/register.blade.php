@@ -6,10 +6,10 @@
 
     <div class="w-full">
         <div class="w-full flex flex-col items-center justify-center bg-grey-lighter font-sans min-h-screen-header">
-            <div class="container mx-auto">
-                <div class="md:w-full sm:w-full lg:w-1/2 lg:max-w-l mx-auto border border-grey p-8 pt-0 rounded">
+            <div class="container mx-auto my-8">
+                <div class="md:w-full sm:w-full lg:w-1/2 lg:max-w-l mx-auto border border-grey p-8 my-8 md:pt-0 rounded bg-white">
                     <div class="text-center">
-                        <h2 class="text-blue-light text-5xl mb-8 text-center -mt-8 bg-grey-lighter inline-block px-4">Sign up</h2>
+                        <h2 class="text-blue-light text-5xl mb-8 text-center md:-mt-8 bg-grey-lighter inline-block px-4 bg-white border border-grey rounded  py-2">Sign up</h2>
                     </div>
 
                     <div class="flex flex-col items-center justify-center pb-8 border-b border-grey mb-8">
@@ -19,7 +19,7 @@
                         <p class="text-grey-dark text-xs"><i class="fas fa-"></i> If you're logging in with Slack, make sure you are not currently switched to another slack team in the browser.</p>
                     </div>
 
-                    <form role="form" class="mb-4" method="POST" action="{{ route('login') }}">
+                    <form role="form" class="mb-4" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
                         <div class="mb-6">
@@ -34,7 +34,7 @@
                         <div class="mb-6">
                             <label for="email" class="block text-grey-dark text-lg font-bold md:text-left mb-2 pr-4">Email</label>
                             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-blue-lightest"
-                                   id="name" type="text" name="email" value="{{ old('email') }}" placeholder="Email">
+                                   id="email" type="text" name="email" value="{{ old('email') }}" placeholder="Email">
                             @if ($errors->has('email'))
                             <span class="text-red inline-block mt-4">{{ $errors->first('email') }}</span>
                             @endif
