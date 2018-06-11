@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\PostWasCreated;
 use Illuminate\Support\Facades\Log;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Response;
 
 class PostController extends Controller
 {
@@ -34,8 +36,9 @@ class PostController extends Controller
     /**
      * Display a post
      *
-     * @param App\Models\Post $post
-     * @return Illuminate\Http\Response
+     * @param Post $post
+     *
+     * @return Response
      */
     public function show(Post $post)
     {
@@ -70,8 +73,12 @@ class PostController extends Controller
         }
 
         if (auth()->user()) {
-            Log::debug(auth()->user()->name . " created post {$post->id}");
+            $user = auth()->user();
+            event(new PostWasCreated($post, $user));
+
+            Log::debug($user->name . " created post {$post->title}");
         }
+
 
         return response()->json([
             'post' => $post

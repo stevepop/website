@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\UserHasSignedUp;
 use App\Helpers\Slack;
 use App\Models\Role;
 use App\Models\User;
@@ -77,6 +78,8 @@ class RegisterController extends Controller
         $user->assignRole($role);
 
         Slack::sendInvitation($user->email);
+
+        event(new UserHasSignedUp($user));
 
         return $user;
     }

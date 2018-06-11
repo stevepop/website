@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\PostWasCreated;
+use App\Notifications\NewPostNotification;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -14,9 +16,14 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         \SocialiteProviders\Manager\SocialiteWasCalled::class => [
-            // add your listeners (aka providers) here
             'SocialiteProviders\Slack\SlackExtendSocialite@handle',
         ],
+        \App\Events\UserHasSignedUp::class => [
+            \App\Listeners\NotifyWhenSignedUp::class,
+        ],
+        PostWasCreated::class => [
+            NewPostNotification::class,
+        ]
     ];
 
     /**

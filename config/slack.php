@@ -19,5 +19,6 @@ return [
     */
 
     'invitation_url' => env('SLACK_SIGNUP_URL'),
-    'legacy_token' => env('SLACK_LEGACY_TOKEN')
+    'legacy_token' => env('SLACK_LEGACY_TOKEN'),
+    'webhook_url' => env('SLACK_WEBHOOK_URL'),
 ];

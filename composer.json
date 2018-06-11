@@ -10,6 +10,7 @@
         "cviebrock/eloquent-taggable": "^3.3",
         "doctrine/dbal": "^2.7",
         "fideloper/proxy": "~4.0",
+        "guzzlehttp/guzzle": "^6.3",
         "joepriest/passwordreset": "^1.2.1",
         "laravel/framework": "5.6.*",
         "laravel/passport": "^4.0",
