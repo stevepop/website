@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\UserHasSignedUp;
+use App\Models\User;
 use App\Notifications\UserSignedUpNotification;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -28,11 +29,8 @@ class NotifyWhenSignedUp
      */
     public function handle(UserHasSignedUp $event)
     {
-        $admins = User::with('roles')
-            ->whereHas('roles', function ($query) {
-                $query->where('role_id', 1);
-            })->get();
+        $slackAdmin = User::slackAdmin()->get();
 
-        Notification::send($admins, new UserSignedUpNotification($event->user));
+        Notification::send($slackAdmin, new UserSignedUpNotification($event->user));
     }
 }

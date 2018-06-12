@@ -2,7 +2,10 @@
 
 namespace App\Notifications;
 
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Messages\NexmoMessage;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -32,7 +35,7 @@ class UserSignedUpNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail', 'slack'];
+        return ['mail', 'slack', 'nexmo'];
     }
 
     /**
@@ -45,7 +48,7 @@ class UserSignedUpNotification extends Notification
     {
         return (new MailMessage)
                     ->line('A new user has signed up!')
-                    ->line('A new user has signed up to the LaravelUK website');
+                    ->line("{$this->user->name} has just signed up on the LaravelUK website. Be nice and say hello!");
     }
 
     /**
@@ -55,9 +58,26 @@ class UserSignedUpNotification extends Notification
      */
     public function toSlack($notifiable)
     {
+        $user = $this->user;
+
         return (new SlackMessage)
+            ->success()
             ->from('LaravelUK', ':laraveluk:')
-            ->to('#Steve Pope')
-            ->content('A new user has signed up');
+            ->to('#notification_demo')
+            ->content('A new member has signed up')
+            ->attachment(function ($attachment) use ($user) {
+                $attachment->title('New Member', $user->id)
+                    ->fields([
+                        'Name' => $user->name,
+                        'Joined' => Carbon::now()->toDateTimeString(),
+                    ]);
+            });
+    }
+
+
+    public function toNexmo($notifiable)
+    {
+        return (new NexmoMessage)
+            ->content('A new user has signed up on LaravelUK. Be nice and go say hello!');
     }
 }

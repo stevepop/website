@@ -77,7 +77,7 @@ class RegisterController extends Controller
 
         $user->assignRole($role);
 
-        Slack::sendInvitation($user->email);
+        //Slack::sendInvitation($user->email);
 
         event(new UserHasSignedUp($user));
 

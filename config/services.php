@@ -30,7 +30,7 @@ return [
     ],
 
     'stripe' => [
-        'model' => App\User::class,
+        'model' => App\Models\User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
@@ -39,5 +39,12 @@ return [
         'client_id' => env('SLACK_CLIENT_ID'),
         'client_secret' => env('SLACK_CLIENT_SECRET'),
         'redirect' => env('SLACK_REDIRECT_CALLBACK_URL'),
+    ],
+
+    'nexmo' => [
+        'key' => env('NEXMO_KEY'),
+        'secret' => env('NEXMO_SECRET'),
+        'sms_from' => env('NEXMO_FROM'),
+        'sms_to' => env('SMS_ADMIN'),
     ],
 ];

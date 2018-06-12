@@ -17,6 +17,7 @@
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
         "mashape/unirest-php": "^3.0",
+        "nexmo/client": "^1.4",
         "socialiteproviders/slack": "^3.0"
     },
     "require-dev": {

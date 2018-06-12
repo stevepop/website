@@ -27,6 +27,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function scopeSlackAdmin($query)
+    {
+        return $query->where('slack_id', 'U4FHEPX6J');
+    }
+
     /**
      * A user has many posts
      *
@@ -142,5 +147,15 @@ class User extends Authenticatable
         } else {
             return $avatar;
         }
+    }
+
+    public function routeNotificationForSlack($notification)
+    {
+        return config('slack.webhook_url');
+    }
+
+    public function routeNotificationForNexmo($notification)
+    {
+        return config('services.nexmo.sms_to');
     }
 }
