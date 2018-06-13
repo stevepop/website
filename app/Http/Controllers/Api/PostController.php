@@ -74,6 +74,8 @@ class PostController extends Controller
 
         if (auth()->user()) {
             $user = auth()->user();
+
+            // Fire the event!
             event(new PostWasCreated($post, $user));
 
             Log::debug($user->name . " created post {$post->title}");
